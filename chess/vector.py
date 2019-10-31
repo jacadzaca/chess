@@ -15,7 +15,8 @@ class Vector():
         return Vector(self.x - other_vector.x, self.y - other_vector.y)
 
     def __eq__(self, other_vector):
-        return self.x == other_vector.x and self.y == other_vector.y
+        '''checks only if the values are equal, neglects the direction '''
+        return abs(self.x) == abs(other_vector.x) and abs(self.y) == abs(other_vector.y)
 
 
 def parse_vector(positon):
