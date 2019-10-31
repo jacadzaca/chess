@@ -18,10 +18,10 @@ class Board:
     def create_pieces(self):
         black_pawns_row = self._tiles[1]
         for tile in black_pawns_row:
-            tile.current_piece = Pawn(_BLACK)
+            tile.piece = Pawn(_BLACK)
         whie_pawns_row = self._tiles[6]
         for tile in whie_pawns_row:
-            tile.current_piece = Pawn(_WHITE)
+            tile.piece = Pawn(_WHITE)
 
     def get_node_at(self, positon):
         return self._tiles[positon.y][positon.x]
@@ -35,7 +35,7 @@ class Board:
         move = current_position - desired_position
         current_tile = self.get_node_at(current_position)
         desired_tile = self.get_node_at(desired_position)
-        if current_tile.current_piece.is_legal_move(move) and not desired_tile.is_occupied():
+        if current_tile.piece.is_legal_move(move) and not desired_tile.is_occupied():
             pass
 
     def __str__(self):
