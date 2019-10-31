@@ -1,6 +1,5 @@
 from tile import Tile
-from piece import Piece
-from white_pawn_move_logic import WhitePawnMoveLogic
+from pieces.pawn import Pawn
 import vector
 
 _BLACK = 0
@@ -19,10 +18,10 @@ class Board:
     def create_pieces(self):
         black_pawns_row = self._nodes[1]
         for tile in black_pawns_row:
-            tile.current_piece = Piece('P', _BLACK, WhitePawnMoveLogic())
+            tile.current_piece = Pawn(_BLACK)
         whie_pawns_row = self._nodes[6]
         for tile in whie_pawns_row:
-            tile.current_piece = Piece('P', _WHITE, WhitePawnMoveLogic())
+            tile.current_piece = Pawn(_WHITE)
 
     def get_piece_at_node(self, positon):
         return self._nodes[positon.y][positon.x].current_piece
@@ -33,7 +32,7 @@ class Board:
         tiles = move_command.split(' ')
         position = vector.parse_vector(tiles[0])
         move = position.difference(vector.parse_vector(tiles[1]))
-        if self.get_piece_at_node(position).is_move_possible(move):
+        if self.get_piece_at_node(position).is_legal_move(move):
             pass
 
     def __str__(self):

@@ -1,8 +1,9 @@
 from vector import Vector
 
 
-class WhitePawnMoveLogic():
-    def __init__(self):
+class Pawn():
+    def __init__(self, owner):
+        self._owner = owner
         self._already_moved = False
 
     def is_legal_move(self, move_vector):
@@ -12,3 +13,10 @@ class WhitePawnMoveLogic():
 
     def is_legal_attack(self, attack_vector):
         return attack_vector == Vector(1, 1) or attack_vector == Vector(-1, 1)
+
+    @property
+    def owner(self):
+        return self._owner
+
+    def __str__(self):
+        return 'P'
