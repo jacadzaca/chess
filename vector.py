@@ -11,7 +11,7 @@ class Vector():
     def y(self):
         return self._y
 
-    def difference(self, other_vector):
+    def __sub__(self, other_vector):
         return Vector(self.x - other_vector.x, self.y - other_vector.y)
 
     def __eq__(self, other_vector):

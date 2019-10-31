@@ -31,7 +31,7 @@ class Board:
         Example: "00 01" '''
         tiles = move_command.split(' ')
         position = vector.parse_vector(tiles[0])
-        move = position.difference(vector.parse_vector(tiles[1]))
+        move = position - vector.parse_vector(tiles[1])
         if self.get_piece_at_node(position).is_legal_move(move):
             pass
 
