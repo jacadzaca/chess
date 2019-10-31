@@ -9,6 +9,7 @@ _WHITE = 1
 class Board:
     def __init__(self):
         self._tiles = []
+        self.turn = _WHITE
         for i in range(8):
             self._tiles.append([])
             for j in range(8):
@@ -35,8 +36,22 @@ class Board:
         move = current_position - desired_position
         current_tile = self.get_node_at(current_position)
         desired_tile = self.get_node_at(desired_position)
-        if current_tile.piece.is_legal_move(move) and not desired_tile.is_occupied():
-            pass
+        if current_tile.piece.owner is self.turn and current_tile.piece.is_legal_move(move) and not desired_tile.is_occupied():
+            desired_tile.piece = current_tile.piece
+            current_tile.piece = None
+            self.change_turn()
+        elif current_tile.piece.is_legal_attack(move) and desired_tile.is_occupied() and desired_tile.piece.owner != current_tile.piece.owner:
+            desired_tile.piece = current_tile.piece
+            current_tile = None
+            self.change_turn()
+        else:
+            print('Invalid move command')
+
+    def change_turn(self):
+        if self.turn is _WHITE:
+            self.turn = _BLACK
+        elif self.turn is _BLACK:
+            self.turn = _WHITE
 
     def __str__(self):
         board_representation = '  0 1 2 3 4 5 6 7'
