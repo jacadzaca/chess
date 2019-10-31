@@ -11,7 +11,7 @@ class Tile:
 
     @piece.setter
     def piece(self, new_piece):
-        if self.is_occupied():
+        if self.is_occupied() and new_piece is not None:
             raise RuntimeError('There cannot be two pieces on one tile')
         self._piece = new_piece
 
