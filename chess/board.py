@@ -41,8 +41,9 @@ class Board:
             current_tile.piece = None
             self.change_turn()
         elif current_tile.piece.is_legal_attack(move) and desired_tile.is_occupied() and desired_tile.piece.owner != current_tile.piece.owner:
+            desired_tile.piece = None
             desired_tile.piece = current_tile.piece
-            current_tile = None
+            current_tile.piece = None
             self.change_turn()
         else:
             print('Invalid move command')
