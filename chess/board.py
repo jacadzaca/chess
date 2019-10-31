@@ -24,7 +24,7 @@ class Board:
         for tile in whie_pawns_row:
             tile.piece = Pawn(_WHITE)
 
-    def get_node_at(self, positon):
+    def get_tile_at(self, positon):
         return self._tiles[positon.y][positon.x]
 
     def execute_command(self, command):
@@ -34,8 +34,8 @@ class Board:
         current_position = vector.parse_vector(tiles[0])
         desired_position = vector.parse_vector(tiles[1])
         move = current_position - desired_position
-        current_tile = self.get_node_at(current_position)
-        desired_tile = self.get_node_at(desired_position)
+        current_tile = self.get_tile_at(current_position)
+        desired_tile = self.get_tile_at(desired_position)
         if current_tile.piece.owner is self.turn and current_tile.piece.is_legal_move(move) and not desired_tile.is_occupied():
             desired_tile.piece = current_tile.piece
             current_tile.piece = None
