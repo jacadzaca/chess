@@ -23,16 +23,17 @@ class Board:
         for tile in whie_pawns_row:
             tile.current_piece = Pawn(_WHITE)
 
-    def get_piece_at_node(self, positon):
-        return self._nodes[positon.y][positon.x].current_piece
+    def get_node_at(self, positon):
+        return self._nodes[positon.y][positon.x]
 
     def make_move(self, move_command):
         '''move command is a string like format [digitdigit digitdigit].
         Example: "00 01" '''
         tiles = move_command.split(' ')
-        position = vector.parse_vector(tiles[0])
-        move = position - vector.parse_vector(tiles[1])
-        if self.get_piece_at_node(position).is_legal_move(move):
+        current_position = vector.parse_vector(tiles[0])
+        desired_position = vector.parse_vector(tiles[1])
+        move = current_position - desired_position
+        if self.get_node_at(current_position).current_piece.is_legal_move(move) and not self.get_node_at(desired_position).is_occupied():
             pass
 
     def __str__(self):
