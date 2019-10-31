@@ -12,7 +12,7 @@ class Pawn():
         return move_vector == Vector(0, 1)
 
     def is_legal_attack(self, attack_vector):
-        return attack_vector == Vector(1, 1) or attack_vector == Vector(-1, 1)
+        return attack_vector == Vector(1, 1)
 
     @property
     def owner(self):
