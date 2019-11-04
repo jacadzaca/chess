@@ -40,7 +40,7 @@ class Board:
         tiles = command.split(' ')
         current_position = vector.parse_vector(tiles[0])
         desired_position = vector.parse_vector(tiles[1])
-        move = current_position - desired_position
+        move = desired_position - current_position
         current_tile = self.get_tile_at(current_position)
         desired_tile = self.get_tile_at(desired_position)
         if current_tile.piece.owner is self.turn and current_tile.piece.is_legal_move(move) and current_tile.piece.is_piece_moveable_there(current_position, move):
