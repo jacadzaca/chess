@@ -35,6 +35,9 @@ class Vector():
     def __sub__(self, other_vector):
         return Vector(self.x - other_vector.x, self.y - other_vector.y)
 
+    def __add__(self, other_vector):
+        return Vector(self.x + other_vector.x, self.y + other_vector.y)
+
     def __eq__(self, other_vector):
         '''checks only if the values are equal, neglects the direction '''
         return math.isclose(abs(self.x), abs(other_vector.x)) and math.isclose(abs(self.y), abs(other_vector.y))

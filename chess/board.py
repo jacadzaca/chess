@@ -43,7 +43,7 @@ class Board:
         move = current_position - desired_position
         current_tile = self.get_tile_at(current_position)
         desired_tile = self.get_tile_at(desired_position)
-        if current_tile.piece.owner is self.turn and current_tile.piece.is_legal_move(move) and not desired_tile.is_occupied():
+        if current_tile.piece.owner is self.turn and current_tile.piece.is_legal_move(move) and current_tile.piece.is_piece_moveable_there(current_position, move):
             desired_tile.piece = current_tile.piece
             current_tile.piece = None
             self.change_turn()
