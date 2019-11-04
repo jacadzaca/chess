@@ -1,6 +1,7 @@
 from tile import Tile
 from pieces.pawn import Pawn
 from pieces.knight import Knight
+from pieces.queen import Queen
 import vector
 
 _BLACK = 0
@@ -28,6 +29,7 @@ class Board:
         self._tiles[7][1].piece = Knight(_WHITE)
         self._tiles[0][6].piece = Knight(_BLACK)
         self._tiles[7][6].piece = Knight(_WHITE)
+        self._tiles[7][4].piece = Queen(_WHITE, self)
 
     def get_tile_at(self, positon):
         return self._tiles[positon.y][positon.x]

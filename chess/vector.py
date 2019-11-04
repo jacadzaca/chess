@@ -1,3 +1,6 @@
+import math
+
+
 class Vector():
     def __init__(self, x, y):
         self._x = x
@@ -11,12 +14,30 @@ class Vector():
     def y(self):
         return self._y
 
+    @x.setter
+    def x(self, new_x):
+        self._x = new_x
+
+    @y.setter
+    def y(self, new_y):
+        self._y = new_y
+
+    def direction(self):
+        '''calcualte unit length vector'''
+        return self / self.length()
+
+    def __truediv__(self, nubmer):
+        return Vector(self.x / nubmer, self.y / nubmer)
+
+    def length(self):
+        return math.sqrt(self.x**2 + self.y**2)
+
     def __sub__(self, other_vector):
         return Vector(self.x - other_vector.x, self.y - other_vector.y)
 
     def __eq__(self, other_vector):
         '''checks only if the values are equal, neglects the direction '''
-        return abs(self.x) == abs(other_vector.x) and abs(self.y) == abs(other_vector.y)
+        return math.isclose(abs(self.x), abs(other_vector.x)) and math.isclose(abs(self.y), abs(other_vector.y))
 
 
 def parse_vector(positon):
