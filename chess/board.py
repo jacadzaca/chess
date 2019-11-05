@@ -11,13 +11,9 @@ _WHITE = 1
 
 
 class Board:
-    def __init__(self):
-        self._tiles = []
+    def __init__(self, width, height):
+        self._tiles = [[Tile() for _ in range(width)] for _ in range(height)]
         self.turn = _WHITE
-        for i in range(8):
-            self._tiles.append([])
-            for j in range(8):
-                self._tiles[i].append(Tile())
         self.create_pieces()
 
     def create_pieces(self):
