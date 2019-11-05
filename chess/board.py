@@ -2,7 +2,9 @@ from tile import Tile
 from pieces.pawn import Pawn
 from pieces.knight import Knight
 from pieces.queen import Queen
+import math
 import vector
+import copy
 
 _BLACK = 0
 _WHITE = 1
@@ -21,10 +23,10 @@ class Board:
     def create_pieces(self):
         black_pawns_row = self._tiles[1]
         for tile in black_pawns_row:
-            tile.piece = Pawn(_BLACK)
+            tile.piece = Pawn(_BLACK, self)
         whie_pawns_row = self._tiles[6]
         for tile in whie_pawns_row:
-            tile.piece = Pawn(_WHITE)
+            tile.piece = Pawn(_WHITE, self)
         self._tiles[0][1].piece = Knight(_BLACK)
         self._tiles[7][1].piece = Knight(_WHITE)
         self._tiles[0][6].piece = Knight(_BLACK)
@@ -38,22 +40,39 @@ class Board:
         '''command is a string of format [digitdigit digitdigit].
         Example: "00 01" '''
         tiles = command.split(' ')
-        current_position = vector.parse_vector(tiles[0])
+        position = vector.parse_vector(tiles[0])
         desired_position = vector.parse_vector(tiles[1])
-        move = desired_position - current_position
-        current_tile = self.get_tile_at(current_position)
+        tile = self.get_tile_at(position)
         desired_tile = self.get_tile_at(desired_position)
-        if current_tile.piece.owner is self.turn and current_tile.piece.is_legal_move(move) and current_tile.piece.is_piece_moveable_there(current_position, move):
-            desired_tile.piece = current_tile.piece
-            current_tile.piece = None
+        piece = tile.piece
+        if piece.owner is self.turn and piece.is_legal_move(copy.deepcopy(position), copy.deepcopy(desired_position)):
+            desired_tile.piece = piece
+            tile.piece = None
             self.change_turn()
-        elif current_tile.piece.is_legal_attack(move) and desired_tile.is_occupied() and desired_tile.piece.owner != current_tile.piece.owner:
+        elif piece.is_legal_attack(position, desired_position) and desired_tile.is_occupied() and desired_tile.piece.owner is not piece.owner:
             desired_tile.piece = None
-            desired_tile.piece = current_tile.piece
-            current_tile.piece = None
+            desired_tile.piece = piece
+            tile.piece = None
             self.change_turn()
         else:
             print('Invalid move command')
+
+    def are_all_tiles_on_move_empty(self, position, desired_position, move):
+        while position != desired_position:
+            if move.x != 0:
+                position.x += int(math.copysign(1, move.x))
+            if move.y != 0:
+                position.y += int(math.copysign(1, move.y))
+            if self.get_tile_at(position).is_occupied():
+                return False
+        return True
+
+    def are_all_tiles_on_move_empty_except_last(self, position, desired_position, move):
+        if move.x != 0:
+            desired_position.x -= int(math.copysign(1, move.x))
+        if move.y != 0:
+            desired_position.y -= int(math.copysign(1, move.y))
+        return self.are_all_tiles_on_move_empty(position, desired_position, move)
 
     def change_turn(self):
         if self.turn is _WHITE:
