@@ -5,6 +5,7 @@ from pieces.queen import Queen
 import math
 import vector
 import copy
+import itertools
 
 _BLACK = 0
 _WHITE = 1
@@ -14,6 +15,7 @@ class Board:
     def __init__(self, width, height):
         self._tiles = [[Tile() for _ in range(width)] for _ in range(height)]
         self.turn = _WHITE
+        self._width = width
         self.create_pieces()
 
     def create_pieces(self):
@@ -77,7 +79,7 @@ class Board:
             self.turn = _WHITE
 
     def __str__(self):
-        board_representation = '  0 1 2 3 4 5 6 7'
+        board_representation = '  {}'.format(' '.join(map(str, itertools.takewhile(lambda row: row < self._width, itertools.count()))))
         row_count = -1
         for row in self._tiles:
             row_count += 1
