@@ -14,7 +14,7 @@ _WHITE = 1
 class Board:
     def __init__(self, width, height):
         self._tiles = [[Tile() for _ in range(width)] for _ in range(height)]
-        self.turn = _WHITE
+        self._turn = _WHITE
         self._width = width
         self.create_pieces()
 
@@ -43,7 +43,7 @@ class Board:
         tile = self.get_tile_at(position)
         desired_tile = self.get_tile_at(desired_position)
         piece = tile.piece
-        if piece.owner is self.turn and piece.is_legal_move(copy.deepcopy(position), copy.deepcopy(desired_position)):
+        if piece.owner is self._turn and piece.is_legal_move(copy.deepcopy(position), copy.deepcopy(desired_position)):
             desired_tile.piece = piece
             tile.piece = None
             self.change_turn()
@@ -73,10 +73,10 @@ class Board:
         return self.are_all_tiles_on_move_empty(position, desired_position, move)
 
     def change_turn(self):
-        if self.turn is _WHITE:
-            self.turn = _BLACK
-        elif self.turn is _BLACK:
-            self.turn = _WHITE
+        if self._turn is _WHITE:
+            self._turn = _BLACK
+        elif self._turn is _BLACK:
+            self._turn = _WHITE
 
     def __str__(self):
         board_representation = '  {}'.format(' '.join(map(str, itertools.takewhile(lambda row: row < self._width, itertools.count()))))
