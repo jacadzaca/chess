@@ -40,14 +40,15 @@ class Board:
         tiles = command.split(' ')
         position = vector.parse_vector(tiles[0])
         desired_position = vector.parse_vector(tiles[1])
+        move = desired_position - position
         tile = self.get_tile_at(position)
         desired_tile = self.get_tile_at(desired_position)
         piece = tile.piece
-        if piece.owner is self._turn and piece.is_legal_move(copy.deepcopy(position), copy.deepcopy(desired_position)):
+        if piece.owner is self._turn and piece.is_legal_move(move) and ((piece.is_jumper and not desired_tile.is_occupied()) or self.are_all_tiles_on_move_empty(copy.deepcopy(position), copy.deepcopy(desired_position), move)):
             desired_tile.piece = piece
             tile.piece = None
             self.change_turn()
-        elif piece.is_legal_attack(position, desired_position) and desired_tile.is_occupied() and desired_tile.piece.owner is not piece.owner:
+        elif piece.is_legal_attack(move) and desired_tile.is_occupied() and desired_tile.piece.owner is not piece.owner and (piece.is_jumper or self.are_all_tiles_on_move_empty_except_last(position, desired_position, move)):
             desired_tile.piece = None
             desired_tile.piece = piece
             tile.piece = None

@@ -12,6 +12,10 @@ class Knight:
         return self.is_legal_move(attack_vector)
 
     @property
+    def is_jumper(self):
+        return True
+
+    @property
     def owner(self):
         return self._owner
 

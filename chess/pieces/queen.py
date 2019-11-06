@@ -7,13 +7,15 @@ class Queen:
         self._owner = owner
         self._board = board
 
-    def is_legal_move(self, current_position, desired_position):
-        move_vector = desired_position - current_position
-        return move_vector.direction() in _ALLOWED_MOVE_DIRECTIONS() and self._board.are_all_tiles_on_move_empty(current_position, desired_position, move_vector)
+    def is_legal_move(self, move):
+        return move.direction() in _ALLOWED_MOVE_DIRECTIONS()
 
-    def is_legal_attack(self, current_position, desired_position):
-        attack = desired_position - current_position
-        return attack.direction() in _ALLOWED_MOVE_DIRECTIONS() and self._board.are_all_tiles_on_move_empty_except_last(current_position, desired_position, attack)
+    def is_legal_attack(self, attack):
+        return attack.direction() in _ALLOWED_MOVE_DIRECTIONS()
+
+    @property
+    def is_jumper(self):
+        return False
 
     @property
     def owner(self):
