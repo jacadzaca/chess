@@ -34,12 +34,7 @@ class Board:
     def get_tile_at(self, positon):
         return self._tiles[positon.y][positon.x]
 
-    def execute_command(self, command):
-        '''command is a string of format [digitdigit digitdigit].
-        Example: "00 01" '''
-        tiles = command.split(' ')
-        position = vector.parse_vector(tiles[0])
-        desired_position = vector.parse_vector(tiles[1])
+    def execute_command(self, position, desired_position):
         move = desired_position - position
         tile = self.get_tile_at(position)
         desired_tile = self.get_tile_at(desired_position)
