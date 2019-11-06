@@ -2,10 +2,9 @@ from vector import Vector
 
 
 class Pawn():
-    def __init__(self, owner, board):
+    def __init__(self, owner):
         self._owner = owner
         self._already_moved = False
-        self._board = board
 
     def is_legal_move(self, move):
         predicate = move == Vector(0, 1)

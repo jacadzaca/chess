@@ -3,9 +3,8 @@ import math
 
 
 class Queen:
-    def __init__(self, owner, board):
+    def __init__(self, owner):
         self._owner = owner
-        self._board = board
 
     def is_legal_move(self, move):
         return move.direction() in _ALLOWED_MOVE_DIRECTIONS()
