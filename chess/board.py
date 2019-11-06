@@ -3,7 +3,6 @@ from pieces.pawn import Pawn
 from pieces.knight import Knight
 from pieces.queen import Queen
 import math
-import vector
 import copy
 import itertools
 
