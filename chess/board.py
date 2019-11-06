@@ -44,7 +44,7 @@ class Board:
         tile = self.get_tile_at(position)
         desired_tile = self.get_tile_at(desired_position)
         piece = tile.piece
-        if piece.owner is self._turn and piece.is_legal_move(move) and ((piece.is_jumper and not desired_tile.is_occupied()) or self.are_all_tiles_on_move_empty(copy.deepcopy(position), copy.deepcopy(desired_position), move)):
+        if piece.owner is self._turn and piece.is_legal_move(move) and ((piece.is_jumper and not desired_tile.is_occupied()) or self.are_all_tiles_on_move_empty(position, desired_position, move)):
             desired_tile.piece = piece
             tile.piece = None
             self.change_turn()
@@ -57,21 +57,23 @@ class Board:
             print('Invalid move command')
 
     def are_all_tiles_on_move_empty(self, position, desired_position, move):
-        while position != desired_position:
+        temp_position = copy.deepcopy(position)
+        while temp_position != desired_position:
             if move.x != 0:
-                position.x += int(math.copysign(1, move.x))
+                temp_position.x += int(math.copysign(1, move.x))
             if move.y != 0:
-                position.y += int(math.copysign(1, move.y))
-            if self.get_tile_at(position).is_occupied():
+                temp_position.y += int(math.copysign(1, move.y))
+            if self.get_tile_at(temp_position).is_occupied():
                 return False
         return True
 
     def are_all_tiles_on_move_empty_except_last(self, position, desired_position, move):
+        temp_desired_positon = copy.deepcopy(desired_position)
         if move.x != 0:
-            desired_position.x -= int(math.copysign(1, move.x))
+            temp_desired_positon.x -= int(math.copysign(1, move.x))
         if move.y != 0:
-            desired_position.y -= int(math.copysign(1, move.y))
-        return self.are_all_tiles_on_move_empty(position, desired_position, move)
+            temp_desired_positon.y -= int(math.copysign(1, move.y))
+        return self.are_all_tiles_on_move_empty(position, temp_desired_positon, move)
 
     def change_turn(self):
         if self._turn is _WHITE:
