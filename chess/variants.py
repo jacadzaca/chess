@@ -1,6 +1,7 @@
 from pieces.pawn import Pawn
 from pieces.knight import Knight
 from pieces.freely_moving_piece import FreelyMovingPiece
+from pieces.king import King
 from players import Player
 from tile import Tile
 from vector import Vector
@@ -28,5 +29,16 @@ def normal_game():
     up_down_direction = Vector(0, 1)
     all_diagonals = Vector(sqrt2_over_2, sqrt2_over_2)
     queen_allowed_move_directions = [left_right_direction, up_down_direction, all_diagonals]
+    tiles[7][3].piece = King(Player.WHITE)
+    tiles[0][3].piece = King(Player.BLACK)
     tiles[7][4].piece = FreelyMovingPiece(Player.WHITE, 'Q', queen_allowed_move_directions)
+    tiles[0][4].piece = FreelyMovingPiece(Player.BLACK, 'Q', queen_allowed_move_directions)
+    tiles[7][2].piece = FreelyMovingPiece(Player.WHITE, 'B', [all_diagonals])
+    tiles[7][5].piece = FreelyMovingPiece(Player.WHITE, 'B', [all_diagonals])
+    tiles[0][2].piece = FreelyMovingPiece(Player.BLACK, 'B', [all_diagonals])
+    tiles[0][5].piece = FreelyMovingPiece(Player.BLACK, 'B', [all_diagonals])
+    tiles[7][0].piece = FreelyMovingPiece(Player.WHITE, 'R', [up_down_direction])
+    tiles[7][7].piece = FreelyMovingPiece(Player.WHITE, 'R', [up_down_direction])
+    tiles[0][0].piece = FreelyMovingPiece(Player.BLACK, 'R', [up_down_direction])
+    tiles[0][7].piece = FreelyMovingPiece(Player.BLACK, 'R', [up_down_direction])
     return tiles
