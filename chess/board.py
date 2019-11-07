@@ -3,9 +3,6 @@ import math
 import copy
 import itertools
 
-_BLACK = 0
-_WHITE = 1
-
 
 class Board:
     def __init__(self, variant_creator):
@@ -54,10 +51,10 @@ class Board:
         return self.are_all_tiles_on_move_empty(position, temp_desired_positon, move)
 
     def change_turn(self):
-        if self._turn is _WHITE:
-            self._turn = _BLACK
-        elif self._turn is _BLACK:
-            self._turn = _WHITE
+        if self._turn is Player.WHITE:
+            self._turn = Player.BLACK
+        elif self._turn is Player.BLACK:
+            self._turn = Player.WHITE
 
     def __str__(self):
         board_representation = '  {}'.format(' '.join(map(str, itertools.takewhile(lambda row: row < self._width, itertools.count()))))
