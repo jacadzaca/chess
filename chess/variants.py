@@ -1,8 +1,9 @@
 from pieces.pawn import Pawn
 from pieces.knight import Knight
-from pieces.queen import Queen
+from pieces.freely_moving_piece import FreelyMovingPiece
 from players import Player
 from tile import Tile
+from vector import Vector
 '''this file contains functions that are responsible for creating different chess variants.
     Functions responsible for creating variants are not supposed to take any arguments,
     Functions responsible are suppose to return a board in from of a list of lists,
@@ -22,5 +23,10 @@ def normal_game():
     tiles[7][1].piece = Knight(Player.WHITE)
     tiles[0][6].piece = Knight(Player.BLACK)
     tiles[7][6].piece = Knight(Player.WHITE)
-    tiles[7][4].piece = Queen(Player.WHITE)
+    sqrt2_over_2 = (2**(1 / 2)) / 2
+    left_right_direction = Vector(1, 0)
+    up_down_direction = Vector(0, 1)
+    all_diagonals = Vector(sqrt2_over_2, sqrt2_over_2)
+    queen_allowed_move_directions = [left_right_direction, up_down_direction, all_diagonals]
+    tiles[7][4].piece = FreelyMovingPiece(Player.WHITE, 'Q', queen_allowed_move_directions)
     return tiles
