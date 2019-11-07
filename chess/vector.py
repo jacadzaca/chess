@@ -38,6 +38,10 @@ class Vector():
     def __add__(self, other_vector):
         return Vector(self.x + other_vector.x, self.y + other_vector.y)
 
+    def completly_equal(self, other_vector):
+        '''checks if the value and direction of the vector is the same '''
+        return math.isclose(self.x, other_vector.x) and math.isclose(self.y, other_vector.y)
+
     def __eq__(self, other_vector):
         '''checks only if the values are equal, neglects the direction '''
         return math.isclose(abs(self.x), abs(other_vector.x)) and math.isclose(abs(self.y), abs(other_vector.y))

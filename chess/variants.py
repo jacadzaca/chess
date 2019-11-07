@@ -15,11 +15,13 @@ from vector import Vector
 def normal_game():
     tiles = [[Tile() for _ in range(8)] for _ in range(8)]
     black_pawns_row = tiles[1]
+    down = Vector(0, 1)
     for tile in black_pawns_row:
-        tile.piece = Pawn(Player.BLACK)
+        tile.piece = Pawn(Player.BLACK, down)
     whie_pawns_row = tiles[6]
+    up = Vector(0, -1)
     for tile in whie_pawns_row:
-        tile.piece = Pawn(Player.WHITE)
+        tile.piece = Pawn(Player.WHITE, up)
     tiles[0][1].piece = Knight(Player.BLACK)
     tiles[7][1].piece = Knight(Player.WHITE)
     tiles[0][6].piece = Knight(Player.BLACK)
