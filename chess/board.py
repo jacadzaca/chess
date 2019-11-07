@@ -1,7 +1,4 @@
-from tile import Tile
-from pieces.pawn import Pawn
-from pieces.knight import Knight
-from pieces.queen import Queen
+from players import Player
 import math
 import copy
 import itertools
@@ -11,24 +8,10 @@ _WHITE = 1
 
 
 class Board:
-    def __init__(self, width, height):
-        self._tiles = [[Tile() for _ in range(width)] for _ in range(height)]
-        self._turn = _WHITE
-        self._width = width
-        self.create_pieces()
-
-    def create_pieces(self):
-        black_pawns_row = self._tiles[1]
-        for tile in black_pawns_row:
-            tile.piece = Pawn(_BLACK)
-        whie_pawns_row = self._tiles[6]
-        for tile in whie_pawns_row:
-            tile.piece = Pawn(_WHITE)
-        self._tiles[0][1].piece = Knight(_BLACK)
-        self._tiles[7][1].piece = Knight(_WHITE)
-        self._tiles[0][6].piece = Knight(_BLACK)
-        self._tiles[7][6].piece = Knight(_WHITE)
-        self._tiles[7][4].piece = Queen(_WHITE)
+    def __init__(self, variant_creator):
+        self._tiles = variant_creator()
+        self._turn = Player.WHITE
+        self._width = len(self._tiles[0])
 
     def get_tile_at(self, positon):
         return self._tiles[positon.y][positon.x]

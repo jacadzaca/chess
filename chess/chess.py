@@ -1,9 +1,10 @@
 from board import Board
+import variants
 import vector
 
 
 def main():
-    chess_board = Board(8, 8)
+    chess_board = Board(variants.normal_game)
     print(chess_board)
     while True:
         command = parse_command(input())
