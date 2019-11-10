@@ -1,9 +1,10 @@
 from vector import Vector
+from pieces.piece_properties import PieceProperties
 
 
-class Pawn():
+class Pawn(PieceProperties):
     def __init__(self, owner, allowed_move_direction):
-        self._owner = owner
+        super().__init__(owner, 'P')
         self._allowed_move_direction = allowed_move_direction
         self._already_moved = False
 
@@ -15,14 +16,3 @@ class Pawn():
 
     def is_legal_attack(self, attack):
         return attack == Vector(1, 1)
-
-    @property
-    def is_jumper(self):
-        return False
-
-    @property
-    def owner(self):
-        return self._owner
-
-    def __str__(self):
-        return 'P'

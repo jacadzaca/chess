@@ -1,23 +1,13 @@
 from vector import Vector
+from pieces.piece_properties import PieceProperties
 
 
-class King():
+class King(PieceProperties):
     def __init__(self, owner):
-        self._owner = owner
+        super().__init__(owner, 'K', is_king=True)
 
     def is_legal_move(self, move):
         return move == Vector(0, 1) or move == Vector(1, 0)
 
     def is_legal_attack(self, attack):
         return self.is_legal_move(attack)
-
-    @property
-    def is_jumper(self):
-        return False
-
-    @property
-    def owner(self):
-        return self._owner
-
-    def __str__(self):
-        return 'K'
