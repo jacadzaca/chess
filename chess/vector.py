@@ -51,4 +51,6 @@ def parse_vector(positon):
     '''vector can be parsed form a string like [digitdigit]
        Example: "02"
        Craetes a vector of Vector type'''
+    if len(positon) != 2:
+        raise ValueError('Can only create vectors from vectors of size 2')
     return Vector(int(positon[0]), int(positon[1]))
