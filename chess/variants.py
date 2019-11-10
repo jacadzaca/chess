@@ -14,19 +14,21 @@ from vector import Vector
 
 def normal_game():
     tiles = [[Tile() for _ in range(8)] for _ in range(8)]
+    sqrt2_over_2 = (2**(1 / 2)) / 2
     black_pawns_row = tiles[1]
     down = Vector(0, 1)
+    down_diagonally = Vector(sqrt2_over_2, sqrt2_over_2)
     for tile in black_pawns_row:
-        tile.piece = Pawn(Player.BLACK, down)
+        tile.piece = Pawn(Player.BLACK, down, down_diagonally)
     whie_pawns_row = tiles[6]
     up = Vector(0, -1)
+    up_diagonally = Vector(sqrt2_over_2, -sqrt2_over_2)
     for tile in whie_pawns_row:
-        tile.piece = Pawn(Player.WHITE, up)
+        tile.piece = Pawn(Player.WHITE, up, up_diagonally)
     tiles[0][1].piece = Knight(Player.BLACK)
     tiles[7][1].piece = Knight(Player.WHITE)
     tiles[0][6].piece = Knight(Player.BLACK)
     tiles[7][6].piece = Knight(Player.WHITE)
-    sqrt2_over_2 = (2**(1 / 2)) / 2
     left_right_direction = Vector(1, 0)
     up_down_direction = Vector(0, 1)
     all_diagonals = Vector(sqrt2_over_2, sqrt2_over_2)

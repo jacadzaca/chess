@@ -3,9 +3,10 @@ from pieces.piece_properties import PieceProperties
 
 
 class Pawn(PieceProperties):
-    def __init__(self, owner, allowed_move_direction):
+    def __init__(self, owner, allowed_move_direction, allowed_attack_direction):
         super().__init__(owner, 'P')
         self._allowed_move_direction = allowed_move_direction
+        self._allowed_attack_direction = allowed_attack_direction
         self._already_moved = False
 
     def is_legal_move(self, move):
@@ -15,4 +16,4 @@ class Pawn(PieceProperties):
         return predicate and move.direction().completly_equal(self._allowed_move_direction)
 
     def is_legal_attack(self, attack):
-        return attack == Vector(1, 1)
+        return attack == Vector(1, 1) and attack.direction().completly_equal(self._allowed_attack_direction)
