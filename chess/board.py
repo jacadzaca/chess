@@ -14,7 +14,7 @@ class Board:
         return self._tiles[positon.y][positon.x]
 
     def execute_command(self, position, desired_position):
-        '''input to this function is expected to be sanitized'''
+        '''raises IndexError if position or desired_position is/are out of board's range'''
         move = desired_position - position
         tile = self.get_tile_at(position)
         desired_tile = self.get_tile_at(desired_position)
