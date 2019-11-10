@@ -40,7 +40,8 @@ class Board:
         move_clear = piece.is_jumper or self.are_all_tiles_on_move_empty_except_last(position, desired_position, move)
         pices_owners_different = desired_tile.piece.owner is not piece.owner
         pices_owners_turn = piece.owner is self._turn
-        return pices_owners_turn and piece.is_legal_attack(move) and desired_tile.is_occupied() and pices_owners_different and move_clear
+        can_attack_there = piece.is_legal_attack(move) and desired_tile.is_occupied()
+        return pices_owners_turn and can_attack_there and pices_owners_different and move_clear
 
     def are_all_tiles_on_move_empty(self, position, desired_position, move):
         temp_position = copy.deepcopy(position)
