@@ -16,20 +16,23 @@ class Board:
 
     def execute_attack(self, command):
         '''@param see command.py
-           @returns the moved pice
+           @returns the knocked over pice
            is_valid_attack is expected to be invoked before this method
            it's up to user to change the turn'''
+        knocked_over_piece = command.desired_tile.piece
         command.desired_tile.piece = None
         command.desired_tile.piece = command.tile.piece
         command.tile.piece = None
+        return knocked_over_piece
 
     def execute_move(self, command):
         '''@param see command.py
-           @returns the pice, which was knocked over
-           is_move_attack is expected to be invoked before this method
+           @returns the piece, which was moved
+           is_valid_move is expected to be invoked before this method
            it's up to user to change the turn'''
         command.desired_tile.piece = command.piece
         command.tile.piece = None
+        return command.piece
 
     def is_valid_move(self, command):
         can_pice_jump = command.piece.is_jumper and not command.desired_tile.is_occupied()
