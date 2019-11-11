@@ -11,25 +11,29 @@ class Board:
         self._width = len(self._tiles[0])
 
     def get_tile_at(self, positon):
+        '''raises IndexError if position is out of board's range'''
         return self._tiles[positon.y][positon.x]
 
-    def execute_command(self, position, desired_position):
-        '''raises IndexError if position or desired_position is/are out of board's range'''
-        move = desired_position - position
-        tile = self.get_tile_at(position)
-        desired_tile = self.get_tile_at(desired_position)
+    def execute_attack(self, tile, desired_tile):
+        '''@param tile is the tile that pice that is to be move is standing on
+           @param desired_tile is the tile that the pice is to be moved on
+           @returns the moved pice
+           is_valid_attack is expected to be invoked before this method
+           it's up to user to change the turn'''
         piece = tile.piece
-        if self.is_valid_move(position, desired_position, move, piece, desired_tile):
-            desired_tile.piece = piece
-            tile.piece = None
-            self.change_turn()
-        elif self.is_valid_attack(position, desired_position, move, piece, desired_tile):
-            desired_tile.piece = None
-            desired_tile.piece = piece
-            tile.piece = None
-            self.change_turn()
-        else:
-            print('Invalid move command')
+        desired_tile.piece = None
+        desired_tile.piece = piece
+        tile.piece = None
+
+    def execute_move(self, tile, desired_tile):
+        '''@param tile is the tile that pice that is to be move is standing on
+           @param desired_tile is the tile that the pice is to be moved on
+           @returns the pice, which was knocked over
+           is_move_attack is expected to be invoked before this method
+           it's up to user to change the turn'''
+        piece = tile.piece
+        desired_tile.piece = piece
+        tile.piece = None
 
     def is_valid_move(self, position, desired_position, move, piece, desired_tile):
         can_pice_jump = piece.is_jumper and not desired_tile.is_occupied()

@@ -9,7 +9,24 @@ def main():
     while True:
         try:
             command = parse_command(input())
-            chess_board.execute_command(command[0], command[1])
+            position = command[0]
+            desired_position = command[1]
+            tile = chess_board.get_tile_at(position)
+            desired_tile = chess_board.get_tile_at(desired_position)
+            move = desired_position - position
+            piece = tile.piece
+            if piece is None:
+                print('No pice at that tile')
+                print(chess_board)
+                continue
+            if chess_board.is_valid_move(position, desired_position, move, piece, desired_tile):
+                chess_board.execute_move(tile, desired_tile)
+                chess_board.change_turn()
+            elif chess_board.is_valid_attack(position, desired_position, move, piece, desired_tile):
+                chess_board.execute_attack(tile, desired_tile)
+                chess_board.change_turn()
+            else:
+                print('Invalid move command')
         except (ValueError, IndexError):
             print('Cannnot parse the command')
         print(chess_board)
