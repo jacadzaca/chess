@@ -2,6 +2,7 @@ from players import Player
 import math
 import copy
 import itertools
+import pdb
 
 
 class Board:
@@ -37,6 +38,8 @@ class Board:
         return command.piece.owner is self._turn and command.piece.is_legal_move(command.move) and is_move_clear
 
     def is_valid_attack(self, command):
+        if command.desired_tile.piece is None:
+            return False
         move_clear = command.piece.is_jumper or self.are_all_tiles_on_move_empty_except_last(command.move, command.position, command.desired_position)
         pices_owners_different = command.desired_tile.piece.owner is not command.piece.owner
         pices_owners_turn = command.piece.owner is self._turn
@@ -60,7 +63,7 @@ class Board:
             temp_desired_positon.x -= int(math.copysign(1, move.x))
         if move.y != 0:
             temp_desired_positon.y -= int(math.copysign(1, move.y))
-        return self.are_all_tiles_on_move_empty(move, position, desired_position)
+        return self.are_all_tiles_on_move_empty(move, position, temp_desired_positon)
 
     def change_turn(self):
         if self._turn is Player.WHITE:
