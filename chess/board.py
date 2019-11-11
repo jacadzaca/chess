@@ -2,7 +2,6 @@ from players import Player
 import math
 import copy
 import itertools
-import pdb
 
 
 class Board:
