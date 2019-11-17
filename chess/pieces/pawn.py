@@ -16,4 +16,4 @@ class Pawn(PieceProperties):
         return predicate and move.direction().completly_equal(self._allowed_move_direction)
 
     def is_legal_attack(self, attack):
-        return attack == Vector(1, 1) and attack.direction().completly_equal(self._allowed_attack_direction)
+        return attack == Vector(1, 1) and self._allowed_attack_direction.equal_enough(attack.direction())
