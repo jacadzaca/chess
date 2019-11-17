@@ -26,7 +26,7 @@ class Vector():
         '''checks if the value and direction of the vector is the same '''
         return math.isclose(self.x, other_vector.x) and math.isclose(self.y, other_vector.y)
 
-    def equal_enough(self, other_vector):
+    def y_equal_completly(self, other_vector):
         '''checks if the value and direction of the y component is the same,
            only compares the absolute value of the x component'''
         return math.isclose(abs(self.x), abs(other_vector.x)) and math.isclose(self.y, other_vector.y)
