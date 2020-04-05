@@ -47,10 +47,6 @@ class Board:
                                                     command.position,
                                                     command.desired_position))
 
-    def _can_jump_there(command):
-        return (command.piece.is_jumper
-                and not command.desired_tile.is_occupied())
-
     def is_valid_attack(self, command):
         if command.desired_tile.piece is None:
             return False
