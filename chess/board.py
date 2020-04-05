@@ -100,9 +100,8 @@ class Board:
             ' '.join(map(str, itertools.takewhile(
                 lambda row: row < self._width, itertools.count())))
         for row, row_count in zip(self._tiles, itertools.count()):
+            board_representation += '\n' + str(row_count)
             for i in range(len(row)):
-                if i == 0:
-                    board_representation += '\n' + str(row_count)
                 board_representation += ' ' + str(row[i])
         return board_representation
 
