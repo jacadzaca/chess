@@ -5,7 +5,7 @@ from pieces.king import King
 from players import Player
 from tile import Tile
 from vector import Vector
-''' this file contains functions that
+'''this file contains functions that
     are responsible for creating different chess variants.
     Functions responsible for creating variants,
     are not supposed to take any arguments,
