@@ -43,9 +43,9 @@ class Board:
     def _is_move_clear(self, command):
         return (command.piece.is_jumper
                 and not command.desired_tile.is_occupied()
-                or self.are_all_tiles_on_move_empty(command.move,
-                                                    command.position,
-                                                    command.desired_position))
+                or self._are_all_tiles_on_move_empty(command.move,
+                                                     command.position,
+                                                     command.desired_position))
 
     def is_valid_attack(self, command):
         if command.desired_tile.piece is None:
@@ -60,12 +60,12 @@ class Board:
 
     def _is_attack_clear(self, command):
         return (command.piece.is_jumper
-                or self.are_all_tiles_on_move_empty_except_last(
+                or self._are_all_tiles_on_move_empty_except_last(
                     command.move,
                     command.position,
                     command.desired_position))
 
-    def are_all_tiles_on_move_empty(self, move, position, desired_position):
+    def _are_all_tiles_on_move_empty(self, move, position, desired_position):
         temp_position = copy.deepcopy(position)
         while temp_position != desired_position:
             if move.x != 0:
@@ -76,18 +76,18 @@ class Board:
                 return False
         return True
 
-    def are_all_tiles_on_move_empty_except_last(self,
-                                                move,
-                                                position,
-                                                desired_position):
+    def _are_all_tiles_on_move_empty_except_last(self,
+                                                 move,
+                                                 position,
+                                                 desired_position):
         temp_desired_positon = copy.deepcopy(desired_position)
         if move.x != 0:
             temp_desired_positon.x -= int(math.copysign(1, move.x))
         if move.y != 0:
             temp_desired_positon.y -= int(math.copysign(1, move.y))
-        return self.are_all_tiles_on_move_empty(move,
-                                                position,
-                                                temp_desired_positon)
+        return self._are_all_tiles_on_move_empty(move,
+                                                 position,
+                                                 temp_desired_positon)
 
     def change_turn(self):
         if self._turn is Player.WHITE:
