@@ -32,6 +32,7 @@ class Board:
            it's up to user to change the turn'''
         command.desired_tile.piece = command.piece
         command.tile.piece = None
+        command.piece.already_moved = True
         return command.piece
 
     def is_valid_move(self, command):

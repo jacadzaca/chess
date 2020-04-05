@@ -1,9 +1,13 @@
 class PieceProperties():
-    def __init__(self, owner, representation, is_jumper=False, is_king=False):
+    def __init__(self,
+                 owner,
+                 representation,
+                 is_jumper=False, is_king=False, already_moved=False):
         self._owner = owner
         self._representation = representation
         self._is_jumper = is_jumper
         self._is_king = is_king
+        self.already_moved = already_moved
 
     @property
     def is_jumper(self):
