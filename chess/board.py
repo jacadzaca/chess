@@ -35,18 +35,45 @@ class Board:
         return command.piece
 
     def is_valid_move(self, command):
-        can_pice_jump = command.piece.is_jumper and not command.desired_tile.is_occupied()
-        is_move_clear = can_pice_jump or self.are_all_tiles_on_move_empty(command.move, command.position, command.desired_position)
-        return command.piece.owner is self._turn and command.piece.is_legal_move(command.move) and is_move_clear
+        return (self._is_pices_owners_turn(command)
+                and command.piece.is_legal_move(command.move)
+                and self.is_move_clear(command))
+
+    def _is_move_clear(self, command):
+        return (command.piece.is_jumper
+                and not command.desired_tile.is_occupied()
+                or self.are_all_tiles_on_move_empty(command.move,
+                                                    command.position,
+                                                    command.desired_position))
+
+    def _can_jump_there(command):
+        return (command.piece.is_jumper
+                and not command.desired_tile.is_occupied())
 
     def is_valid_attack(self, command):
         if command.desired_tile.piece is None:
             return False
-        move_clear = command.piece.is_jumper or self.are_all_tiles_on_move_empty_except_last(command.move, command.position, command.desired_position)
-        pices_owners_different = command.desired_tile.piece.owner is not command.piece.owner
-        pices_owners_turn = command.piece.owner is self._turn
-        can_attack_there = command.piece.is_legal_attack(command.move) and command.desired_tile.is_occupied()
-        return pices_owners_turn and can_attack_there and pices_owners_different and move_clear
+        return (self._is_pices_owners_turn(command)
+                and self._can_attack_there(command)
+                and self._are_pices_owners_different(command)
+                and self._is_attack_clear(command))
+
+    def _is_pices_owners_turn(self, command):
+        return command.piece.owner is self._turn
+
+    def _are_pices_owners_different(command):
+        return command.desired_tile.piece.owner is not command.piece.owner
+
+    def _can_attack_there(command):
+        return (command.piece.is_legal_attack(command.move)
+                and command.desired_tile.is_occupied())
+
+    def _is_attack_clear(self, command):
+        return (command.piece.is_jumper
+                or self.are_all_tiles_on_move_empty_except_last(
+                    command.move,
+                    command.position,
+                    command.desired_position))
 
     def are_all_tiles_on_move_empty(self, move, position, desired_position):
         temp_position = copy.deepcopy(position)
@@ -59,13 +86,18 @@ class Board:
                 return False
         return True
 
-    def are_all_tiles_on_move_empty_except_last(self, move, position, desired_position):
+    def are_all_tiles_on_move_empty_except_last(self,
+                                                move,
+                                                position,
+                                                desired_position):
         temp_desired_positon = copy.deepcopy(desired_position)
         if move.x != 0:
             temp_desired_positon.x -= int(math.copysign(1, move.x))
         if move.y != 0:
             temp_desired_positon.y -= int(math.copysign(1, move.y))
-        return self.are_all_tiles_on_move_empty(move, position, temp_desired_positon)
+        return self.are_all_tiles_on_move_empty(move,
+                                                position,
+                                                temp_desired_positon)
 
     def change_turn(self):
         if self._turn is Player.WHITE:
@@ -74,7 +106,9 @@ class Board:
             self._turn = Player.WHITE
 
     def __str__(self):
-        board_representation = '  ' + ' '.join(map(str, itertools.takewhile(lambda row: row < self._width, itertools.count())))
+        board_representation = '  ' + \
+            ' '.join(map(str, itertools.takewhile(
+                lambda row: row < self._width, itertools.count())))
         row_count = -1
         for row in self._tiles:
             row_count += 1
