@@ -101,8 +101,8 @@ class Board:
                 lambda row: row < self._width, itertools.count())))
         for row, row_count in zip(self._tiles, itertools.count()):
             board_representation += '\n' + str(row_count)
-            for i in range(len(row)):
-                board_representation += ' ' + str(row[i])
+            for cell in row:
+                board_representation += ' ' + str(cell)
         return board_representation
 
 
