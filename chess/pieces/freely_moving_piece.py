@@ -1,5 +1,6 @@
-''' this file contains class that is supposed to handle pieces like queen or rooks,
-    pieces that can move variable number of fileds in certain directions, i.e move freely '''
+''' FreelyMovingPiece is supposed to handle pieces like queen or rooks,
+    pieces that can move variable number of fileds in certain directions,
+    i.e move freely'''
 from pieces.piece_properties import PieceProperties
 
 

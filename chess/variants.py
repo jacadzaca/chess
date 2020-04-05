@@ -5,9 +5,12 @@ from pieces.king import King
 from players import Player
 from tile import Tile
 from vector import Vector
-'''this file contains functions that are responsible for creating different chess variants.
-    Functions responsible for creating variants are not supposed to take any arguments,
-    Functions responsible are suppose to return a board in from of a list of lists,
+''' this file contains functions that
+    are responsible for creating different chess variants.
+    Functions responsible for creating variants,
+    are not supposed to take any arguments,
+    Functions responsible for creating variants,
+    are suppose to return a board in from of a list of lists,
     It is insited that pieces owners are contained in the Player enum,
     Make sure that the board is a squre (its width is equal to its height)'''
 
@@ -32,17 +35,25 @@ def normal_game():
     left_right_direction = Vector(1, 0)
     up_down_direction = Vector(0, 1)
     all_diagonals = Vector(sqrt2_over_2, sqrt2_over_2)
-    queen_allowed_move_directions = [left_right_direction, up_down_direction, all_diagonals]
+    queen_allowed_move_directions = [left_right_direction,
+                                     up_down_direction,
+                                     all_diagonals]
     tiles[7][3].piece = King(Player.WHITE)
     tiles[0][3].piece = King(Player.BLACK)
-    tiles[7][4].piece = FreelyMovingPiece(Player.WHITE, 'Q', queen_allowed_move_directions)
-    tiles[0][4].piece = FreelyMovingPiece(Player.BLACK, 'Q', queen_allowed_move_directions)
+    tiles[7][4].piece = FreelyMovingPiece(
+        Player.WHITE, 'Q', queen_allowed_move_directions)
+    tiles[0][4].piece = FreelyMovingPiece(
+        Player.BLACK, 'Q', queen_allowed_move_directions)
     tiles[7][2].piece = FreelyMovingPiece(Player.WHITE, 'B', [all_diagonals])
     tiles[7][5].piece = FreelyMovingPiece(Player.WHITE, 'B', [all_diagonals])
     tiles[0][2].piece = FreelyMovingPiece(Player.BLACK, 'B', [all_diagonals])
     tiles[0][5].piece = FreelyMovingPiece(Player.BLACK, 'B', [all_diagonals])
-    tiles[7][0].piece = FreelyMovingPiece(Player.WHITE, 'R', [up_down_direction])
-    tiles[7][7].piece = FreelyMovingPiece(Player.WHITE, 'R', [up_down_direction])
-    tiles[0][0].piece = FreelyMovingPiece(Player.BLACK, 'R', [up_down_direction])
-    tiles[0][7].piece = FreelyMovingPiece(Player.BLACK, 'R', [up_down_direction])
+    tiles[7][0].piece = FreelyMovingPiece(
+        Player.WHITE, 'R', [up_down_direction])
+    tiles[7][7].piece = FreelyMovingPiece(
+        Player.WHITE, 'R', [up_down_direction])
+    tiles[0][0].piece = FreelyMovingPiece(
+        Player.BLACK, 'R', [up_down_direction])
+    tiles[0][7].piece = FreelyMovingPiece(
+        Player.BLACK, 'R', [up_down_direction])
     return tiles

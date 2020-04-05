@@ -24,16 +24,19 @@ class Vector():
 
     def completly_equal(self, other_vector):
         '''checks if the value and direction of the vector is the same '''
-        return math.isclose(self.x, other_vector.x) and math.isclose(self.y, other_vector.y)
+        return (math.isclose(self.x, other_vector.x)
+                and math.isclose(self.y, other_vector.y))
 
     def y_equal_completly(self, other_vector):
         '''checks if the value and direction of the y component is the same,
            only compares the absolute value of the x component'''
-        return math.isclose(abs(self.x), abs(other_vector.x)) and math.isclose(self.y, other_vector.y)
+        return (math.isclose(abs(self.x), abs(other_vector.x))
+                and math.isclose(self.y, other_vector.y))
 
     def __eq__(self, other_vector):
         '''checks only if the values are equal, neglects the direction '''
-        return math.isclose(abs(self.x), abs(other_vector.x)) and math.isclose(abs(self.y), abs(other_vector.y))
+        return (math.isclose(abs(self.x), abs(other_vector.x))
+                and math.isclose(abs(self.y), abs(other_vector.y)))
 
 
 def parse_vector(positon):
