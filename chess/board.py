@@ -37,7 +37,7 @@ class Board:
     def is_valid_move(self, command):
         return (self._is_pices_owners_turn(command)
                 and command.piece.is_legal_move(command.move)
-                and self.is_move_clear(command))
+                and self._is_move_clear(command))
 
     def _is_move_clear(self, command):
         return (command.piece.is_jumper
@@ -54,19 +54,12 @@ class Board:
         if command.desired_tile.piece is None:
             return False
         return (self._is_pices_owners_turn(command)
-                and self._can_attack_there(command)
-                and self._are_pices_owners_different(command)
+                and _can_attack_there(command)
+                and _are_pices_owners_different(command)
                 and self._is_attack_clear(command))
 
     def _is_pices_owners_turn(self, command):
         return command.piece.owner is self._turn
-
-    def _are_pices_owners_different(command):
-        return command.desired_tile.piece.owner is not command.piece.owner
-
-    def _can_attack_there(command):
-        return (command.piece.is_legal_attack(command.move)
-                and command.desired_tile.is_occupied())
 
     def _is_attack_clear(self, command):
         return (command.piece.is_jumper
@@ -114,6 +107,15 @@ class Board:
             row_count += 1
             for i in range(len(row)):
                 if i == 0:
-                    board_representation += '\n ' + row_count
-                board_representation += row[i]
+                    board_representation += '\n' + str(row_count)
+                board_representation += ' ' + str(row[i])
         return board_representation
+
+
+def _can_attack_there(command):
+    return (command.piece.is_legal_attack(command.move)
+            and command.desired_tile.is_occupied())
+
+
+def _are_pices_owners_different(command):
+    return command.desired_tile.piece.owner is not command.piece.owner
