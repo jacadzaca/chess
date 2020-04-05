@@ -74,12 +74,12 @@ class Board:
             self._turn = Player.WHITE
 
     def __str__(self):
-        board_representation = '  {}'.format(' '.join(map(str, itertools.takewhile(lambda row: row < self._width, itertools.count()))))
+        board_representation = '  ' + ' '.join(map(str, itertools.takewhile(lambda row: row < self._width, itertools.count())))
         row_count = -1
         for row in self._tiles:
             row_count += 1
             for i in range(len(row)):
                 if i == 0:
-                    board_representation += '\n{} '.format(row_count)
-                board_representation += '{} '.format(row[i])
+                    board_representation += '\n ' + row_count
+                board_representation += row[i]
         return board_representation
