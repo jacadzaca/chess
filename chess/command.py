@@ -1,7 +1,10 @@
 import collections
 import vector
 
-Command = collections.namedtuple('Command', 'position, desired_position, move, piece, tile, desired_tile')
+Command = collections.namedtuple('Command', ['position',
+                                             'desired_position',
+                                             'move',
+                                             'piece', 'tile', 'desired_tile'])
 
 
 def parse_command(command, chess_board):
