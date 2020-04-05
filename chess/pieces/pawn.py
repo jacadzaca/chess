@@ -12,8 +12,9 @@ class Pawn(PieceProperties):
         self._already_moved = False
 
     def is_legal_move(self, move):
-        predicate = (move == Vector(0, 1) or move == Vector(0, 2)
-                     if self._already_moved else move == Vector(0, 1))
+        predicate = move == Vector(0, 1)
+        if not self._already_moved:
+            predicate = move == Vector(0, 1) or move == Vector(0, 2)
         return (predicate
                 and move.direction().completly_equal(
                     self._allowed_move_direction))
