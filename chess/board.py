@@ -1,7 +1,7 @@
-from players import Player
 import math
 import copy
 import itertools
+from players import Player
 
 
 class Board:
