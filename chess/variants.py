@@ -25,23 +25,19 @@ def normal_game():
     down_diagonally_left = Vector(-sqrt2_over_2, sqrt2_over_2)
     black_pawn_allowed_attack_directions = set(
         [down_diagonally_left, down_diagonally_right])
-    for tile in black_pawns_row:
-        tile.piece = Pawn(Player.BLACK, down,
-                          black_pawn_allowed_attack_directions)
-    whie_pawns_row = tiles[6]
+    _create_pawns(tiles, black_pawns_row, Player.BLACK,
+                  down, black_pawn_allowed_attack_directions)
+
+    white_pawns_row = tiles[6]
     up = Vector(0, -1)
     up_diagonally_right = Vector(sqrt2_over_2, -sqrt2_over_2)
     up_diagonally_left = Vector(-sqrt2_over_2, -sqrt2_over_2)
     white_pawn_allowed_attack_directions = set(
         [up_diagonally_right, up_diagonally_left])
-    for tile in whie_pawns_row:
-        tile.piece = Pawn(Player.WHITE, up,
-                          white_pawn_allowed_attack_directions)
+    _create_pawns(tiles, white_pawns_row, Player.WHITE,
+                  up, white_pawn_allowed_attack_directions)
 
-    tiles[0][1].piece = Knight(Player.BLACK)
-    tiles[7][1].piece = Knight(Player.WHITE)
-    tiles[0][6].piece = Knight(Player.BLACK)
-    tiles[7][6].piece = Knight(Player.WHITE)
+    _create_knights(tiles)
 
     right = Vector(1, 0)
     left = Vector(-1, 0)
@@ -53,34 +49,64 @@ def normal_game():
                                          down_diagonally_right,
                                          up_diagonally_right,
                                          up_diagonally_left])
-    tiles[7][4].piece = FreelyMovingPiece(
-        Player.WHITE, 'Q', queen_allowed_move_directions)
-    tiles[0][4].piece = FreelyMovingPiece(
-        Player.BLACK, 'Q', queen_allowed_move_directions)
+    _create_queens(tiles, queen_allowed_move_directions)
 
-    tiles[7][3].piece = King(Player.WHITE)
-    tiles[0][3].piece = King(Player.BLACK)
+    _create_kings(tiles)
 
     bishop_allowed_move_directions = set([up_diagonally_left,
                                           up_diagonally_right,
                                           down_diagonally_left,
                                           down_diagonally_right])
-    tiles[7][2].piece = FreelyMovingPiece(
-        Player.WHITE, 'B', bishop_allowed_move_directions)
-    tiles[7][5].piece = FreelyMovingPiece(
-        Player.WHITE, 'B', bishop_allowed_move_directions)
-    tiles[0][2].piece = FreelyMovingPiece(
-        Player.BLACK, 'B', bishop_allowed_move_directions)
-    tiles[0][5].piece = FreelyMovingPiece(
-        Player.BLACK, 'B', bishop_allowed_move_directions)
+    _create_bishops(tiles, bishop_allowed_move_directions)
 
     rook_allowed_move_directions = set([up, down, left, right])
-    tiles[7][0].piece = FreelyMovingPiece(
-        Player.WHITE, 'R', rook_allowed_move_directions)
-    tiles[7][7].piece = FreelyMovingPiece(
-        Player.WHITE, 'R', rook_allowed_move_directions)
-    tiles[0][0].piece = FreelyMovingPiece(
-        Player.BLACK, 'R', rook_allowed_move_directions)
-    tiles[0][7].piece = FreelyMovingPiece(
-        Player.BLACK, 'R', rook_allowed_move_directions)
+    _create_rooks(tiles, rook_allowed_move_directions)
     return tiles
+
+
+def _create_pawns(tiles, row, owner,
+                  allowed_move_direction, allowed_attack_directions):
+    for tile in row:
+        tile.piece = Pawn(owner, allowed_move_direction,
+                          allowed_attack_directions)
+
+
+def _create_knights(tiles):
+    tiles[0][1].piece = Knight(Player.BLACK)
+    tiles[7][1].piece = Knight(Player.WHITE)
+    tiles[0][6].piece = Knight(Player.BLACK)
+    tiles[7][6].piece = Knight(Player.WHITE)
+
+
+def _create_queens(tiles, allowed_move_directions):
+    tiles[7][4].piece = FreelyMovingPiece(
+        Player.WHITE, 'Q', allowed_move_directions)
+    tiles[0][4].piece = FreelyMovingPiece(
+        Player.BLACK, 'Q', allowed_move_directions)
+
+
+def _create_kings(tiles):
+    tiles[7][3].piece = King(Player.WHITE)
+    tiles[0][3].piece = King(Player.BLACK)
+
+
+def _create_bishops(tiles, allowed_move_directions):
+    tiles[7][2].piece = FreelyMovingPiece(
+        Player.WHITE, 'B', allowed_move_directions)
+    tiles[7][5].piece = FreelyMovingPiece(
+        Player.WHITE, 'B', allowed_move_directions)
+    tiles[0][2].piece = FreelyMovingPiece(
+        Player.BLACK, 'B', allowed_move_directions)
+    tiles[0][5].piece = FreelyMovingPiece(
+        Player.BLACK, 'B', allowed_move_directions)
+
+
+def _create_rooks(tiles, allowed_move_directions):
+    tiles[7][0].piece = FreelyMovingPiece(
+        Player.WHITE, 'R', allowed_move_directions)
+    tiles[7][7].piece = FreelyMovingPiece(
+        Player.WHITE, 'R', allowed_move_directions)
+    tiles[0][0].piece = FreelyMovingPiece(
+        Player.BLACK, 'R', allowed_move_directions)
+    tiles[0][7].piece = FreelyMovingPiece(
+        Player.BLACK, 'R', allowed_move_directions)
