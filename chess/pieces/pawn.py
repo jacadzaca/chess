@@ -11,13 +11,11 @@ class Pawn(PieceProperties):
         self._allowed_attack_direction = allowed_attack_direction
 
     def is_legal_move(self, move):
-        move_predicate = (move == Vector(0, 1) if self.already_moved
-                          else move == Vector(0, 1) or move == Vector(0, 2))
+        move_predicate = (move.length() == Vector(0, 1).length() if self.already_moved
+                          else (move.length() == Vector(0, 1).length() or move.length() == Vector(0, 2).length()))
         return (move_predicate
-                and move.direction().completly_equal(
-                    self._allowed_move_direction))
+                and move.direction() == self._allowed_move_direction)
 
     def is_legal_attack(self, attack):
-        return (attack == Vector(1, 1)
-                and self._allowed_attack_direction.y_equal_completly(
-                    attack.direction()))
+        return (attack.length() == Vector(1, 1).length()
+                and attack.direction() in self._allowed_attack_direction)

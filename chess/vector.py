@@ -22,21 +22,17 @@ class Vector():
     def __add__(self, other_vector):
         return Vector(self.x + other_vector.x, self.y + other_vector.y)
 
-    def completly_equal(self, other_vector):
-        '''checks if the value and direction of the vector is the same '''
+    def __eq__(self, other_vector):
         return (math.isclose(self.x, other_vector.x)
                 and math.isclose(self.y, other_vector.y))
 
-    def y_equal_completly(self, other_vector):
-        '''checks if the value and direction of the y component is the same,
-           only compares the absolute value of the x component'''
-        return (math.isclose(abs(self.x), abs(other_vector.x))
-                and math.isclose(self.y, other_vector.y))
-
-    def __eq__(self, other_vector):
-        '''checks only if the values are equal, neglects the direction '''
-        return (math.isclose(abs(self.x), abs(other_vector.x))
-                and math.isclose(abs(self.y), abs(other_vector.y)))
+    def __hash__(self):
+        '''the x and y components are squared and floored
+        to avoid problems with floating point arithmetic
+        this is not a perfect implementation, but good enough
+        for the use case
+        (we only hold vectors in hashtables, when they are unit length)'''
+        return hash((math.floor(self.x**2), math.floor(self.y**2)))
 
 
 def parse_vector(positon):

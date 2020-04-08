@@ -7,7 +7,10 @@ class King(PieceProperties):
         super().__init__(owner, 'K', is_king=True)
 
     def is_legal_move(self, move):
-        return move == Vector(0, 1) or move == Vector(1, 0)
+        return (move == Vector(0, 1)
+                or move == Vector(0, -1)
+                or move == Vector(1, 0)
+                or move == Vector(-1, 0))
 
     def is_legal_attack(self, attack):
         return self.is_legal_move(attack)
