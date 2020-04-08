@@ -28,9 +28,8 @@ class Vector():
 
     def __hash__(self):
         '''the x and y components are squared and floored
-        to avoid problems with floating point arithmetic
-        this is not a perfect implementation, but good enough
-        for the use case
+        to avoid the problems with floating point arithmetic
+        this is not a perfect implementation
         (we only hold vectors in hashtables, when they are unit length)'''
         return hash((math.floor(self.x**2), math.floor(self.y**2)))
 
