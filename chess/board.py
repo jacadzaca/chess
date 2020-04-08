@@ -35,6 +35,12 @@ class Board:
                 and command.piece.is_legal_move(command.move)
                 and self._is_move_clear(command))
 
+    def change_turn(self):
+        if self._turn is Player.WHITE:
+            self._turn = Player.BLACK
+        elif self._turn is Player.BLACK:
+            self._turn = Player.WHITE
+
     def _is_move_clear(self, command):
         return (command.piece.is_jumper
                 and not command.desired_tile.is_occupied()
@@ -83,12 +89,6 @@ class Board:
         return self._are_all_tiles_on_move_empty(move,
                                                  position,
                                                  temp_desired_positon)
-
-    def change_turn(self):
-        if self._turn is Player.WHITE:
-            self._turn = Player.BLACK
-        elif self._turn is Player.BLACK:
-            self._turn = Player.WHITE
 
     def __str__(self):
         board_representation = '  ' + \
